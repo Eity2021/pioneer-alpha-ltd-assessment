@@ -22,7 +22,7 @@ const getVariantClasses = (
     case "primary":
       return `${baseClasses} bg-[#5272FF] text-white hover:bg-[#5272FF] focus:ring-[#5272FF] rounded-[8px] `;
     case "secondary":
-      return `${baseClasses} bg-slate-700 text-white hover:bg-slate-800 focus:ring-slate-500 shadow-md shadow-slate-500/50`;
+      return `${baseClasses} bg-[#8CA3CD] text-white hover:bg-slate-800 focus:ring-[#8CA3CD]  rounded-[8px]`;
     case "outline":
       return `${baseClasses} bg-transparent text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-50 focus:ring-indigo-500 `;
     default:

@@ -3,8 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ClipboardCheck } from "lucide-react";
-// import task from "@/assets/svg/my task.svg";
 import DashboardIcon from "@/assets/svg/DashboardIcon.tsx";
 import TodoListIcon from "@/assets/svg/TodoListIcon.tsx";
 import AccountIcon from "@/assets/svg/AccountIcon.tsx";
@@ -25,16 +23,11 @@ const Sidebar: React.FC = () => {
       icon: (color: string) => <TodoListIcon color={color} size={24} />,
     },
     {
-      href: "/account",
+      href: "/dashboard/account-info",
       label: "Account Information",
       icon: (color: string) => <AccountIcon color={color} size={24} />,
     },
   ];
-
-  //   const isActive = (path: string) => {
-  //     // Handles exact matching, can be customized for partial matching if needed
-  //     return pathname === path;
-  //   };
 
   return (
     <aside className="text-white flex flex-col items-center py-8">

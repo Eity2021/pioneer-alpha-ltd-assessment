@@ -1,13 +1,11 @@
 "use client";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import CustomInput from "../customInput/CustomInput";
-import CustomButton from "../customButton/CustomButton";
+import CustomInput from "@/components/customInput/CustomInput";
+import CustomButton from "@/components/customButton/CustomButton";
 import Link from "next/link";
 
 type Inputs = {
-  example: string;
-  exampleRequired: string;
   email: string;
   first: string;
   last: string;
