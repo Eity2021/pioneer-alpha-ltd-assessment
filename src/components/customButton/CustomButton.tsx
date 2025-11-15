@@ -12,7 +12,7 @@ const getVariantClasses = (
   disabled: boolean
 ): string => {
   const baseClasses =
-    "font-medium py-3 px-4 rounded-[8px] transition ease-in-out duration-200 focus:outline-none focus:ring-4 text-[16px]  font-inter active:scale-95";
+    "font-medium py-3 px-4 rounded-[8px] transition ease-in-out duration-200 focus:outline-none focus:ring-0 text-[16px]  font-inter active:scale-95";
 
   if (disabled) {
     return `${baseClasses} bg-gray-300 text-gray-500 cursor-not-allowed `;

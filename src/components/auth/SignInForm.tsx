@@ -3,6 +3,11 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "../customInput/CustomInput";
 import CustomButton from "../customButton/CustomButton";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "@/hooks/ReactQueryHooks";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 import Link from "next/link";
 
 type Inputs = {
@@ -15,14 +20,26 @@ type Inputs = {
 };
 
 const SignInForm: React.FC = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const { mutateAsync } = useMutation({ mutationFn: loginUser });
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+    try {
+      const res = await mutateAsync(data);
+      Cookies.set("access", JSON.stringify(res.data.access));
+      Cookies.set("refresh", JSON.stringify(res.data.refresh));
+      toast.success("login Successfully");
+      router.push("/");
+      reset();
+    } catch (err) {
+      toast.error("Something wrong");
+    }
   };
 
   return (
@@ -47,10 +64,10 @@ const SignInForm: React.FC = () => {
                 errors={errors}
                 rules={{
                   required: "Email Is required",
-                  pattern: {
-                    value: /^[^.\s]*$/,
-                    message: "Please enter a valid Email format",
-                  },
+                  // pattern: {
+                  //   value: /^[^.\s]*$/,
+                  //   message: "Please enter a valid Email format",
+                  // },
                 }}
               />
             </div>
