@@ -7,6 +7,7 @@ import DashboardIcon from "@/assets/svg/DashboardIcon.tsx";
 import TodoListIcon from "@/assets/svg/TodoListIcon.tsx";
 import AccountIcon from "@/assets/svg/AccountIcon.tsx";
 import userImage from "@/assets/svg/userImage.svg";
+
 import Image from "next/image";
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
@@ -18,7 +19,7 @@ const Sidebar: React.FC = () => {
       icon: (color: string) => <DashboardIcon color={color} size={24} />,
     },
     {
-      href: "/todos",
+      href: "/dashboard/todos",
       label: "Todos",
       icon: (color: string) => <TodoListIcon color={color} size={24} />,
     },
@@ -30,7 +31,7 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="text-white flex flex-col items-center py-8">
+    <aside className="text-white flex flex-col items-center py-8 ">
       <div className="mb-2 mt-8">
         <Image src={userImage} alt="userImage" />
       </div>

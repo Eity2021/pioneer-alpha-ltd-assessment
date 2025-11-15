@@ -10,7 +10,6 @@ export default function page() {
           Account Information
         </h2>
         <hr className="w-40 border border-[#5272FF]" />
-
         <div className="mt-6 w-full flex flex-col gap-6">
           <div className="border border-[#A1A3AB] rounded-2xl p-5 w-[29%]">
             <div className="flex flex-col sm:flex-row items-center gap-5">
