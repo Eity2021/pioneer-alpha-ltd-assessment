@@ -29,7 +29,6 @@ const AccountForm: React.FC = () => {
     return (
         <div className="">
             <div>
-
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <div className="grid grid-cols-2 gap-6">

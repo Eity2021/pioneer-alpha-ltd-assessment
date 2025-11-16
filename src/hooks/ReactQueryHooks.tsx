@@ -17,10 +17,18 @@ export const loginUser = async (userData: LoginData) => {
   return response;
 };
 
-// export const adminProfile = async () => {
-//   const response = await axiosInstance.get(`/public/api/admin/profile`);
-//   return response.data?.data;
-// };
+export const signUpUser = async (usersData: LoginData) => {
+  const response = await axios.post(
+    "https://todo-app.pioneeralpha.com/api/users/signup/",
+    usersData
+  );
+  return response;
+};
+
+export const useProfile = async () => {
+  const response = await axiosInstance.get(`/api/users/me/`);
+  return response.data?.data;
+};
 
 // export const adminList = async (role: string) => {
 //   const res = await axiosInstance.get(`/public/api/${role}/adminacc`);

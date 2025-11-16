@@ -29,7 +29,7 @@ const SignInForm: React.FC = () => {
   } = useForm<Inputs>();
   const { mutateAsync } = useMutation({ mutationFn: loginUser });
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
+
     try {
       const res = await mutateAsync(data);
       Cookies.set("access", JSON.stringify(res.data.access));
@@ -64,10 +64,7 @@ const SignInForm: React.FC = () => {
                 errors={errors}
                 rules={{
                   required: "Email Is required",
-                  // pattern: {
-                  //   value: /^[^.\s]*$/,
-                  //   message: "Please enter a valid Email format",
-                  // },
+                
                 }}
               />
             </div>

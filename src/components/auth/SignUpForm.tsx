@@ -1,27 +1,44 @@
 "use client";
 import React from "react";
+import Link from "next/link";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { signUpUser } from "@/hooks/ReactQueryHooks";
 import { SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "@/components/customInput/CustomInput";
 import CustomButton from "@/components/customButton/CustomButton";
-import Link from "next/link";
-
 type Inputs = {
   email: string;
-  first: string;
-  last: string;
+  first_name: string;
+  last_name: string;
   password: string;
+  confirmPassword: string;
 };
 
 const SignUpForm: React.FC = () => {
+    const router = useRouter();
   const {
     register,
     handleSubmit,
+    getValues,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const { mutateAsync } = useMutation({ mutationFn: signUpUser });
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { confirmPassword, ...finalData } = data;
+    console.log(finalData);
+  try{
+      await mutateAsync(finalData);
+      toast.success("Regiatration Successfully Complete");
+      router.push("/auth/sign-in");
+      reset();
+  } catch(err){
+     toast.error("Something wrong");
+  }
   };
+
 
   return (
     <div className="w-[40%]">
@@ -37,28 +54,29 @@ const SignUpForm: React.FC = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className="grid grid-cols-2 gap-3">
+
               <CustomInput<Inputs>
-                name="first"
+                name="first_name"
                 label="First Name"
                 register={register}
                 errors={errors}
                 rules={{
                   required: "Name Is required",
                   pattern: {
-                    value: /^[^.\s]*$/,
+                    value: /^[^\.\d!@#$%^&*()_+=\-{}[\]|\\:;"'<>,.?/`~]*$/,
                     message: "Please enter a valid name format",
                   },
                 }}
               />
               <CustomInput<Inputs>
-                name="last"
+                name="last_name"
                 label="Last name"
                 register={register}
                 errors={errors}
                 rules={{
                   required: "Name Is required",
                   pattern: {
-                    value: /^[^.\s]*$/,
+                    value:/^[^\.\d!@#$%^&*()_+=\-{}[\]|\\:;"'<>,.?/`~]*$/,
                     message: "Please enter a valid name format",
                   },
                 }}
@@ -71,9 +89,9 @@ const SignUpForm: React.FC = () => {
                 register={register}
                 errors={errors}
                 rules={{
-                  required: "Email Is required",
+                  required:"Email Is required",
                   pattern: {
-                    value: /^[^.\s]*$/,
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "Please enter a valid Email format",
                   },
                 }}
@@ -102,13 +120,13 @@ const SignUpForm: React.FC = () => {
             <div>
               <div className="mt-3">
                 <CustomInput<Inputs>
-                  name="password"
+                  name="confirmPassword"
                   label="Confirm Password"
                   type="password"
                   register={register}
                   errors={errors}
                   rules={{
-                    required: "Password is required",
+                  required: "Confirm Password is required",
                     minLength: {
                       value: 4,
                       message: "Password must be at least 4 characters",
@@ -117,6 +135,8 @@ const SignUpForm: React.FC = () => {
                       value: 10,
                       message: "Password cannot exceed 10 characters",
                     },
+                     validate: (value) =>
+                      value === getValues("password") || "Passwords do not match",
                   }}
                 />
               </div>
