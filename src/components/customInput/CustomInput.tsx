@@ -1,18 +1,18 @@
 "use client";
-import React from "react";
 import {
   FieldErrors,
   FieldValues,
   RegisterOptions,
   UseFormRegister,
+  Path,
 } from "react-hook-form";
 
 interface CustomInputProps<T extends FieldValues> {
-  name: string;
+  name: Path<T>;
   register: UseFormRegister<T>;
   label?: string;
   type?: string;
-  rules?: RegisterOptions;
+  rules?: RegisterOptions<T>;
   errors?: FieldErrors<T>;
   placeholder?: string;
   className?: string;
@@ -32,12 +32,11 @@ export default function CustomInput<T extends FieldValues>({
   defaultValue = "",
   rows = 4,
 }: CustomInputProps<T>) {
-  const isError = errors && errors[name];
+  const isError = errors?.[name];
 
   const commonProps = {
     ...register(name, rules),
-    placeholder: placeholder,
-    label,
+    placeholder,
     defaultValue,
     className: `
       w-full px-4 py-3 rounded-[8px] border text-sm transition-all
@@ -46,7 +45,6 @@ export default function CustomInput<T extends FieldValues>({
       ${className}
     `,
   };
-
   return (
     <div className="flex flex-col gap-1 w-full">
       {label && (
