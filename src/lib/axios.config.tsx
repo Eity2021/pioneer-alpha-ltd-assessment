@@ -2,16 +2,16 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: "https://todo-app.pioneeralpha.com",
+  baseURL: "https://todo-app.pioneeralpha.com/",
   withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = Cookies.get("access");
+  const access = Cookies.get("access");
   const refresh = Cookies.get("refresh");
 
-  if (token && refresh) {
-    config.headers.Authorization = `Bearer ${token} ${refresh}`;
+  if (access) {
+    config.headers.Authorization = `Bearer ${access}`;
   }
 
   return config;

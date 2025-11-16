@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 
 interface CustomInputProps<T extends FieldValues> {
-  name: keyof T;
+  name: string;
   register: UseFormRegister<T>;
   label?: string;
   type?: string;

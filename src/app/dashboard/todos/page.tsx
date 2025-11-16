@@ -1,11 +1,21 @@
 "use client";
 import { Search } from "lucide-react";
 import { useState } from "react";
-import TodoList from "./TodoList";
+import TodoList from "../../../components/ui/todoList/TodoList";
 import TaskModal from "@/components/ui/modal/TaskModal";
 import FilterDropdown from "@/components/ui/filterDropdown/FilterDropdown";
+import { todoList } from "@/hooks/ReactQueryHooks";
+import { useQuery } from "@tanstack/react-query";
 export default function page() {
   const [open, setOpen] = useState(false);
+
+  const { data: todoLists } = useQuery({
+    queryKey: ["todoLists"],
+    queryFn: todoList,
+  });
+
+  console.log("todoLists", todoLists);
+
   return (
     <div className="bg-[#eef7ff]  py-6 px-6 h-[88%]">
       <div className="flex justify-between mb-10">

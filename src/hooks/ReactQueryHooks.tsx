@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/axiosInstance";
+import axiosInstance from "@/lib/axios.config";
 import axios from "axios";
 
 // ============ TYPES ============
@@ -25,8 +25,13 @@ export const signUpUser = async (usersData: LoginData) => {
   return response;
 };
 
-export const useProfile = async () => {
-  const response = await axiosInstance.get(`/api/users/me/`);
+export const userProfile = async () => {
+  const response = await axiosInstance.get(`api/users/me/`);
+  return response.data?.data;
+};
+
+export const todoList = async () => {
+  const response = await axiosInstance.get(`/api/todos/`);
   return response.data?.data;
 };
 
