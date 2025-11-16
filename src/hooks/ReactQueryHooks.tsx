@@ -26,28 +26,11 @@ export const signUpUser = async (usersData: LoginData) => {
 };
 
 export const userProfile = async () => {
-  const response = await axiosInstance.get(`api/users/me/`);
+  const response = await axiosInstance.get(`/users/me/`);
   return response.data?.data;
 };
 
 export const todoList = async () => {
-  const response = await axiosInstance.get(`/api/todos/`);
+  const response = await axiosInstance.get(`/todos/`);
   return response.data?.data;
 };
-
-// export const adminList = async (role: string) => {
-//   const res = await axiosInstance.get(`/public/api/${role}/adminacc`);
-//   return res.data?.data;
-// };
-
-// export const statusUpdate = async ({
-//   statusData,
-//   role,
-//   id,
-// }: {
-//   statusData: any;
-//   role: string;
-//   id: string | number;
-// }) => {
-//   return axiosInstance.put(`/public/api/${role}/statusup/${id}`, statusData);
-// };

@@ -2,20 +2,25 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: "https://todo-app.pioneeralpha.com/",
-  withCredentials: true,
+  baseURL: "https://todo-app.pioneeralpha.com/api/",
+  // withCredentials: true,
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  const access = Cookies.get("access");
-  const refresh = Cookies.get("refresh");
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = Cookies.get("access");
+    // const refresh = Cookies.get("refresh");
 
-  if (access) {
-    config.headers.Authorization = `Bearer ${access}`;
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
   }
-
-  return config;
-});
+);
 
 axiosInstance.interceptors.response.use(
   (response) => response,

@@ -3,9 +3,9 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import DashboardIcon from "@/assets/svg/DashboardIcon.tsx";
-import TodoListIcon from "@/assets/svg/TodoListIcon.tsx";
-import AccountIcon from "@/assets/svg/AccountIcon.tsx";
+import DashboardIcon from "@/assets/svg/DashboardIcon";
+import TodoListIcon from "@/assets/svg/TodoListIcon";
+import AccountIcon from "@/assets/svg/AccountIcon";
 import userImage from "@/assets/svg/userImage.svg";
 
 import Image from "next/image";
