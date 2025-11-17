@@ -1,12 +1,15 @@
 "use client";
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "@/components/customInput/CustomInput";
 import CustomButton from "@/components/customButton/CustomButton";
-import Link from "next/link";
 import CustomCalendar from "@/components/customCalendar/CustomCalendar";
-import { useQuery } from "@tanstack/react-query";
-import { userProfile } from "@/hooks/ReactQueryHooks";
+
+interface userProps {
+  user: string;
+  value: any;
+  onChange: (value: any) => void;
+}
 
 type Inputs = {
   email: string;
@@ -14,21 +17,17 @@ type Inputs = {
   last: string;
   address: string;
   contact: string;
+  birthday: string;
 };
 
-const AccountForm: React.FC = () => {
+const AccountForm: React.FC<userProps> = ({ user }) => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { data: user } = useQuery({
-    queryKey: ["users"],
-    queryFn: userProfile,
-  });
-
-  console.log("user", user);
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
   };
@@ -42,6 +41,7 @@ const AccountForm: React.FC = () => {
               <CustomInput<Inputs>
                 name="first"
                 label="First Name"
+                defaultValue={user?.first_name}
                 register={register}
                 errors={errors}
                 rules={{
@@ -51,6 +51,7 @@ const AccountForm: React.FC = () => {
               <CustomInput<Inputs>
                 name="last"
                 label="Last name"
+                defaultValue={user?.last_name}
                 register={register}
                 errors={errors}
                 rules={{
@@ -62,6 +63,7 @@ const AccountForm: React.FC = () => {
               <CustomInput<Inputs>
                 name="email"
                 label="Email"
+                defaultValue={user?.email}
                 register={register}
                 errors={errors}
                 rules={{
@@ -73,6 +75,7 @@ const AccountForm: React.FC = () => {
               <CustomInput<Inputs>
                 name="address"
                 label="Address"
+                defaultValue={user?.address}
                 register={register}
                 errors={errors}
                 rules={{
@@ -82,6 +85,7 @@ const AccountForm: React.FC = () => {
               <CustomInput<Inputs>
                 name="contact"
                 label="Contact Number"
+                defaultValue={user?.contact_number}
                 register={register}
                 errors={errors}
                 rules={{
@@ -94,7 +98,18 @@ const AccountForm: React.FC = () => {
               <label className="text-[14px] font-medium text-black font-inter">
                 Birthday
               </label>
-              <CustomCalendar />
+              <Controller
+                name="birthday"
+                control={control}
+                rules={{ required: "Birthday is required" }}
+                render={({ field }) => (
+                  <CustomCalendar
+                    value={field.value}
+                    onChange={field.onChange}
+                    user={user}
+                  />
+                )}
+              />
             </div>
             <div className="flex gap-4 justify-center mt-12">
               <div className="mt-3">

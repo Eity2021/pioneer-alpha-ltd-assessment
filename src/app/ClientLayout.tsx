@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { LogOut } from "lucide-react";
 import AuthProvider from "@/components/auth/AuthProvider";
 import ProtectedRoute from "@/components/protectedRoute/ProtectedRoute";
-
 export default function ClientLayout({
   children,
 }: {
@@ -15,6 +14,7 @@ export default function ClientLayout({
   const pathname = usePathname();
   const authRoutes = ["/auth/sign-in", "/auth/sign-up", "/auth/forgot"];
   const isAuthPage = authRoutes.includes(pathname);
+
   return (
     <ProtectedRoute>
       <div className="flex min-h-screen">
@@ -40,7 +40,7 @@ export default function ClientLayout({
           }`}
         >
           {!isAuthPage && <Header />}
-          <AuthProvider>{children}</AuthProvider>
+          <div>{children}</div>
         </main>
       </div>
     </ProtectedRoute>

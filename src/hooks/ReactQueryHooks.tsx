@@ -27,7 +27,7 @@ export const signUpUser = async (usersData: LoginData) => {
 
 export const userProfile = async () => {
   const response = await axiosInstance.get(`/users/me/`);
-  return response.data?.data;
+  return response?.data;
 };
 
 export const todosList = async () => {

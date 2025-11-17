@@ -1,8 +1,18 @@
+"use client";
+
 import camera from "@/assets/image/camera.png";
 import download from "@/assets/image/download.png";
 import Image from "next/image";
 import AccountForm from "@/components/ui/accountForm/AccountForm";
+import { useQuery } from "@tanstack/react-query";
+import { userProfile } from "@/hooks/ReactQueryHooks";
+
 export default function page() {
+  const { data: user } = useQuery({
+    queryKey: ["users"],
+    queryFn: userProfile,
+  });
+
   return (
     <div className="bg-[#eef7ff]   py-12 px-24">
       <div className=" mx-auto bg-white rounded-2xl shadow-md p-8">
@@ -29,7 +39,7 @@ export default function page() {
             </div>
           </div>
           <div className="border border-[#A1A3AB] rounded-2xl py-6 px-12 bg-white">
-            <AccountForm></AccountForm>
+            <AccountForm user={user}></AccountForm>
           </div>
         </div>
       </div>

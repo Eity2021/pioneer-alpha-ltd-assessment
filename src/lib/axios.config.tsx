@@ -8,14 +8,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const token = Cookies.get("access");
-  const refresh = Cookies.get("refresh");
-
-  console.log("Access Token:", token);
-
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
   return config;
 });
 

@@ -6,9 +6,6 @@ import TaskModal from "@/components/ui/modal/TaskModal";
 import FilterDropdown from "@/components/ui/filterDropdown/FilterDropdown";
 import { todosList } from "@/hooks/ReactQueryHooks";
 import { useQuery } from "@tanstack/react-query";
-interface TodoListProps {
-  todoLists: any[]; // or your own type
-}
 
 export default function page() {
   const [open, setOpen] = useState(false);
