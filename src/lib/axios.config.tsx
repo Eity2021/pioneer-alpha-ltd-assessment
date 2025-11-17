@@ -6,32 +6,29 @@ const axiosInstance = axios.create({
   // withCredentials: true,
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = Cookies.get("access");
-    // const refresh = Cookies.get("refresh");
+axiosInstance.interceptors.request.use((config) => {
+  const token = Cookies.get("access");
+  const refresh = Cookies.get("refresh");
 
-    if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+  console.log("Access Token:", token);
 
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      Cookies.remove("access");
-      Cookies.remove("refresh");
-    }
+  return config;
+});
 
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response?.status === 401) {
+//       Cookies.remove("access");
+//       Cookies.remove("refresh");
+//     }
+
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;

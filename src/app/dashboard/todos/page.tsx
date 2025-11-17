@@ -4,14 +4,18 @@ import { useState } from "react";
 import TodoList from "../../../components/ui/todoList/TodoList";
 import TaskModal from "@/components/ui/modal/TaskModal";
 import FilterDropdown from "@/components/ui/filterDropdown/FilterDropdown";
-import { todoList } from "@/hooks/ReactQueryHooks";
+import { todosList } from "@/hooks/ReactQueryHooks";
 import { useQuery } from "@tanstack/react-query";
+interface TodoListProps {
+  todoLists: any[]; // or your own type
+}
+
 export default function page() {
   const [open, setOpen] = useState(false);
 
   const { data: todoLists } = useQuery({
     queryKey: ["todoLists"],
-    queryFn: todoList,
+    queryFn: todosList,
   });
 
   console.log("todoLists", todoLists);
@@ -50,7 +54,7 @@ export default function page() {
         </div>
       </div>
       <div className="mt-8">
-        <TodoList></TodoList>
+        <TodoList todoLists={todoLists}></TodoList>
       </div>
       <div>
         <TaskModal open={open} onClose={() => setOpen(false)}></TaskModal>

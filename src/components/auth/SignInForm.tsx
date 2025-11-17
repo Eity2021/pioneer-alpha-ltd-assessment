@@ -29,11 +29,10 @@ const SignInForm: React.FC = () => {
   } = useForm<Inputs>();
   const { mutateAsync } = useMutation({ mutationFn: loginUser });
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-
     try {
       const res = await mutateAsync(data);
-      Cookies.set("access", JSON.stringify(res.data.access));
-      Cookies.set("refresh", JSON.stringify(res.data.refresh));
+      Cookies.set("access", res.data.access);
+      Cookies.set("refresh", res.data.refresh);
       toast.success("login Successfully");
       router.push("/");
       reset();
@@ -64,7 +63,6 @@ const SignInForm: React.FC = () => {
                 errors={errors}
                 rules={{
                   required: "Email Is required",
-                
                 }}
               />
             </div>

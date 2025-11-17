@@ -30,7 +30,7 @@ export const userProfile = async () => {
   return response.data?.data;
 };
 
-export const todoList = async () => {
+export const todosList = async () => {
   const response = await axiosInstance.get(`/todos/`);
-  return response.data?.data;
+  return response?.data?.results;
 };
