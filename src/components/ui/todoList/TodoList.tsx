@@ -24,7 +24,10 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
       </div>
       <div className="grid grid-cols-3 gap-2">
         {todoLists.map((todoList) => (
-          <div className="bg-white border border-[#FEE2E2] p-10 rounded-lg">
+          <div
+            className="bg-white border border-[#FEE2E2] p-10 rounded-lg"
+            key={todoList?.id}
+          >
             <div className="flex justify-between">
               <h4 className="font-inter font-medium text-[16px] text-[#0D224A]">
                 {todoList?.title}

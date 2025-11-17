@@ -68,7 +68,8 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
       <input
         readOnly
         // placeholder="Select a date"
-        value={user?.birthday}
+        // value={user?.birthday}
+        value={value ? value.toLocaleDateString() : user?.birthday}
         className="w-full h-12 rounded-lg border border-[#D1D5DB] bg-white px-4 pr-10 py-2 text-gray-700 focus:outline-none"
         onClick={() => setOpen((o) => !o)}
       />

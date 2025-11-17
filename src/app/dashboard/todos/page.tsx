@@ -15,8 +15,6 @@ export default function page() {
     queryFn: todosList,
   });
 
-  console.log("todoLists", todoLists);
-
   return (
     <div className="bg-[#eef7ff]  py-6 px-6 h-[88%]">
       <div className="flex justify-between mb-10">

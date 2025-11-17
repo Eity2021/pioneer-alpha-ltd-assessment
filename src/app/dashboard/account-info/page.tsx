@@ -38,6 +38,7 @@ export default function page() {
               </button>
             </div>
           </div>
+
           <div className="border border-[#A1A3AB] rounded-2xl py-6 px-12 bg-white">
             <AccountForm user={user}></AccountForm>
           </div>

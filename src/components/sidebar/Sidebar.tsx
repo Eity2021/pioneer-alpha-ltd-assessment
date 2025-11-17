@@ -17,7 +17,6 @@ const Sidebar: React.FC = () => {
     queryFn: userProfile,
   });
 
-  console.log("user", user);
   const navItems = [
     {
       href: "/",
@@ -38,8 +37,12 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside className="text-white flex flex-col items-center py-8 ">
-      <div className="mb-2 mt-8">
-        <Image src={userImage} alt="userImage" />
+      <div className="mb-2 mt-8 w-[86px] h-[86px]">
+        <img
+          src={user?.profile_image}
+          alt="userImage"
+          className="object-cover rounded-full"
+        />
       </div>
 
       <div className="text-center mb-12">
