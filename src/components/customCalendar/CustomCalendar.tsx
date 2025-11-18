@@ -5,8 +5,9 @@ import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import Image from "next/image";
 
 interface CustomCalendarProps {
-  value?: Date | null;
-  onChange?: (date: Date | null) => void;
+  value?: string | null; // now string in YYYY-MM-DD
+  onChange?: (date: string) => void;
+  user?: any;
 }
 
 const monthNames = [
@@ -27,7 +28,7 @@ const dayLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
 const getDaysArray = (year: number, month: number) => {
   const date = new Date(year, month, 1);
-  const result = [];
+  const result: (Date | null)[] = [];
   const firstDay = date.getDay();
   for (let i = 0; i < firstDay; i++) result.push(null);
   while (date.getMonth() === month) {
@@ -37,14 +38,22 @@ const getDaysArray = (year: number, month: number) => {
   return result;
 };
 
+// Helper to format Date -> YYYY-MM-DD
+const formatDate = (date: Date) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
 const CustomCalendar: React.FC<CustomCalendarProps> = ({
   user,
   value,
   onChange,
 }) => {
-  const now = value || new Date();
-  const [currentYear, setCurrentYear] = useState(now.getFullYear());
-  const [currentMonth, setCurrentMonth] = useState(now.getMonth());
+  const initialDate = value ? new Date(value) : new Date();
+  const [currentYear, setCurrentYear] = useState(initialDate.getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(initialDate.getMonth());
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -67,9 +76,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
     <div className="relative w-full" ref={ref}>
       <input
         readOnly
-        // placeholder="Select a date"
-        // value={user?.birthday}
-        value={value ? value.toLocaleDateString() : user?.birthday}
+        value={value || user?.birthday || ""}
         className="w-full h-12 rounded-lg border border-[#D1D5DB] bg-white px-4 pr-10 py-2 text-gray-700 focus:outline-none"
         onClick={() => setOpen((o) => !o)}
       />
@@ -83,7 +90,6 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
             className="fixed inset-0 bg-black/40 z-20"
             onClick={() => setOpen(false)}
           />
-
           <div className="fixed z-30 left-1/2 top-1/2 w-[40%] max-w-md p-6 rounded-xl bg-white border border-gray-100 shadow-lg -translate-x-1/2 -translate-y-1/2">
             <div className="flex items-center justify-between mb-4">
               <button
@@ -125,12 +131,12 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
                   <button
                     key={d.toISOString()}
                     onClick={() => {
-                      if (onChange) onChange(d); // notify RHF
+                      if (onChange) onChange(formatDate(d)); // formatted YYYY-MM-DD
                       setOpen(false);
                     }}
                     className={`py-2 rounded-lg transition ${
-                      value?.toDateString() === d.toDateString()
-                        ? "bg-gradient-to-r from-[#5272FF] to-[#0D224A] text-white font-semibold"
+                      value === formatDate(d)
+                        ? "bg-linear-to-r from-[#5272FF] to-[#0D224A] text-white font-semibold"
                         : "hover:bg-gray-100 text-gray-700"
                     }`}
                   >
