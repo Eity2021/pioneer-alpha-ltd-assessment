@@ -1,13 +1,23 @@
+"use client";
 import dotted from "@/assets/image/dotted.png";
 import todos from "@/assets/image/todos.png";
 import Image from "next/image";
 import { PencilLine, Trash } from "lucide-react";
+import { SetStateAction, useState } from "react";
+import DeleteTodos from "@/app/dashboard/todos/DeleteTodos";
 
 interface TodoListProps {
-  todoLists: any[]; 
+  todoLists: any[];
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [selectedTodosId, setSelectedTodosId] = useState(null);
+
+  const handleTodoDelete = (todoList: SetStateAction<null>) => {
+    setSelectedTodosId(todoList);
+    setShowModalDelete(true);
+  };
 
   if (!todoLists || todoLists.length === 0) {
     return (
@@ -63,7 +73,10 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
                 <div className="bg-[#EEF7FF] p-3 rounded-lg">
                   <PencilLine color="#4F46E5" size={19} />
                 </div>
-                <div className="bg-[#EEF7FF] p-3 rounded-lg">
+                <div
+                  className="bg-[#EEF7FF] p-3 rounded-lg cursor-pointer"
+                  onClick={() => handleTodoDelete(todoList)}
+                >
                   <Trash color="#DC2626" size={19} />
                 </div>
               </div>
@@ -71,6 +84,11 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
           </div>
         ))}
       </div>
+      <DeleteTodos
+        showModalDelete={showModalDelete}
+        selectedTodosId={selectedTodosId}
+        setShowModalDelete={setShowModalDelete}
+      ></DeleteTodos>
     </div>
   );
 };
