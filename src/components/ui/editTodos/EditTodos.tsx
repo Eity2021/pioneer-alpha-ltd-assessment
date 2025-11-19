@@ -4,13 +4,17 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "@/components/customInput/CustomInput";
 import CustomCalendar from "@/components/customCalendar/CustomCalendar";
 import { useMutation } from "@tanstack/react-query";
-import { postTodosForm } from "@/hooks/ReactQueryHooks";
+import { editTodosForm, postTodosForm } from "@/hooks/ReactQueryHooks";
 import { toast } from "react-toastify";
 import { queryClient } from "@/lib/queryClient";
+import { useEffect } from "react";
 interface TaskModalProps {
   open: boolean;
   onClose: () => void;
   onChange: (value: any) => void;
+  showModalEdit: any;
+  selectedTodosId: any;
+  description: any;
 }
 type Inputs = {
   title: string;
@@ -18,8 +22,15 @@ type Inputs = {
   priority: "";
 };
 
-export default function TaskModal({ open, onClose }: TaskModalProps) {
-  if (!open) return null;
+export default function EditTodos({
+  showModalEdit,
+  onClose,
+  selectedTodosId,
+}: TaskModalProps) {
+  if (!showModalEdit) return null;
+
+  console.log("selectedTodosId:", selectedTodosId);
+
   const {
     register,
     handleSubmit,
@@ -27,12 +38,30 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
     reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const { mutateAsync } = useMutation({ mutationFn: postTodosForm });
+
+  useEffect(() => {
+    if (selectedTodosId) {
+      reset({
+        title: selectedTodosId?.title || "",
+        description: selectedTodosId?.description || "",
+        priority: selectedTodosId?.priority || "",
+        todo_date: selectedTodosId?.todo_date || "",
+        is_completed: selectedTodosId?.is_completed || "",
+        position: selectedTodosId?.position || "",
+      });
+    }
+  }, [selectedTodosId, reset]);
+
+  const { mutateAsync } = useMutation({ mutationFn: editTodosForm });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+
     try {
-      await mutateAsync({ id: selectedTodosId.id, data });
+      await mutateAsync({
+        id: selectedTodosId?.id,
+        todosData: data,
+      });
       queryClient.invalidateQueries(["todoLists"]);
       toast.success("Added Todos");
       reset();
@@ -64,10 +93,26 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
               name="title"
               label="Title"
               register={register}
-              errors={errors}
-              rules={{
-                required: "Title Is required",
-              }}
+              //   errors={errors}
+              //   rules={{
+              //     required: "Title Is required",
+              //   }}
+            />
+          </div>
+          <div className="mb-4 hidden">
+            <CustomInput<Inputs>
+              name="is_completed"
+              label="Is Completed"
+              register={register}
+              defaultValue="true"
+            />
+          </div>
+          <div className="mb-4 hidden">
+            <CustomInput<Inputs>
+              name="position"
+              label="position"
+              register={register}
+              defaultValue="true"
             />
           </div>
 
@@ -88,11 +133,11 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
                 )}
               />
 
-              {errors.todo_date && (
+              {/* {errors.todo_date && (
                 <p className="text-red-500 text-sm">
                   {errors.todo_date.message}
                 </p>
-              )}
+              )} */}
             </div>
           </div>
 
@@ -153,9 +198,6 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
               rows={6}
               register={register}
               errors={errors}
-              rules={{
-                required: "Description Is required",
-              }}
             />
           </div>
 

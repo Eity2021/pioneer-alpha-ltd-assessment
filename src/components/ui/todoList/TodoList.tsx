@@ -5,6 +5,7 @@ import Image from "next/image";
 import { PencilLine, Trash } from "lucide-react";
 import { SetStateAction, useState } from "react";
 import DeleteTodos from "@/app/dashboard/todos/DeleteTodos";
+import EditTodos from "../editTodos/EditTodos";
 
 interface TodoListProps {
   todoLists: any[];
@@ -12,11 +13,16 @@ interface TodoListProps {
 
 const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
   const [showModalDelete, setShowModalDelete] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(false);
   const [selectedTodosId, setSelectedTodosId] = useState(null);
 
   const handleTodoDelete = (todoList: SetStateAction<null>) => {
     setSelectedTodosId(todoList);
     setShowModalDelete(true);
+  };
+  const handleTodoEdit = (todoList: SetStateAction<null>) => {
+    setSelectedTodosId(todoList);
+    setShowModalEdit(true);
   };
 
   if (!todoLists || todoLists.length === 0) {
@@ -70,7 +76,10 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
                 Due {todoList?.todo_date}
               </p>
               <div className="flex gap-4">
-                <div className="bg-[#EEF7FF] p-3 rounded-lg">
+                <div
+                  className="bg-[#EEF7FF] p-3 rounded-lg"
+                  onClick={() => handleTodoEdit(todoList)}
+                >
                   <PencilLine color="#4F46E5" size={19} />
                 </div>
                 <div
@@ -89,6 +98,11 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
         selectedTodosId={selectedTodosId}
         setShowModalDelete={setShowModalDelete}
       ></DeleteTodos>
+      <EditTodos
+        showModalEdit={showModalEdit}
+        selectedTodosId={selectedTodosId}
+        onClose={() => setShowModalEdit(false)}
+      ></EditTodos>
     </div>
   );
 };
