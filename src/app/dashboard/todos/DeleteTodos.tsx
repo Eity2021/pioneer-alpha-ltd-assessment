@@ -1,12 +1,8 @@
 "use client";
 import React from "react";
 import { X } from "lucide-react";
-import {
-  adminProfile,
-  deleteNewsletter,
-  deleteTodos,
-} from "@/hooks/ReactQueryHooks";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteTodos } from "@/hooks/ReactQueryHooks";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import DeleteModal from "@/components/ui/deleteModal/DeleteModal";
 

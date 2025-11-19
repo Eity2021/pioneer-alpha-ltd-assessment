@@ -32,7 +32,7 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     try {
-      await mutateAsync({ id: selectedTodosId.id, data });
+      await mutateAsync(data);
       queryClient.invalidateQueries(["todoLists"]);
       toast.success("Added Todos");
       reset();
