@@ -15,6 +15,8 @@ interface TaskModalProps {
   showModalEdit: any;
   selectedTodosId: any;
   description: any;
+  position: any;
+  is_completed: any;
 }
 type Inputs = {
   title: string;

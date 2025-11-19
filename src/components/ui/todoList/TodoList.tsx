@@ -179,6 +179,13 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
         showModalEdit={showModalEdit}
         selectedTodosId={selectedTodosId}
         onClose={() => setShowModalEdit(false)}
+        open={false}
+        onChange={function (value: any): void {
+          throw new Error("Function not implemented.");
+        }}
+        description={undefined}
+        position={undefined}
+        is_completed={undefined}
       />
     </div>
   );

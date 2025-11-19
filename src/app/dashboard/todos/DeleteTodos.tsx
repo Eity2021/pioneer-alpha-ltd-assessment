@@ -7,9 +7,9 @@ import { toast } from "react-toastify";
 import DeleteModal from "@/components/ui/deleteModal/DeleteModal";
 
 interface ModalDeleteNewsletterProps {
-  selectedNewsLetterId: { id: string | number } | null;
   showModalDelete: boolean;
   setShowModalDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedTodosId: { id: string | number } | null;
 }
 
 interface DeletePayload {
