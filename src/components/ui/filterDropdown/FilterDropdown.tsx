@@ -24,7 +24,7 @@ const FilterDropdown: React.FC = () => {
       {/* Filter Button */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center gap-5 bg-white border border-[#D1D5DB] rounded-lg px-6 py-1.5 text-gray-700  hover:bg-gray-50 transition"
+        className="flex items-center gap-5 bg-white border border-[#D1D5DB] rounded-lg px-5 py-1.5 text-gray-700  hover:bg-gray-50 transition"
       >
         <span className="text-[16px] font-normal font-inter text-black ">
           Filter By

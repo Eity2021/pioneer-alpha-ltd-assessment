@@ -33,21 +33,25 @@ export default function page() {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-10 gap-2">
-        <div className="col-span-9 relative">
+      <div className="flex flex-col md:flex-row md:items-center md:gap-2 w-full">
+        {/* Search Box */}
+        <div className="relative flex-1 w-full mb-2 md:mb-0">
           <input
-            className="border border-[#D1D5DB] w-full bg-white rounded-lg py-[9px] px-4 text-[12px] font-semibold font-inter text-[#4B5563]"
+            className="border border-[#D1D5DB] w-full bg-white rounded-lg py-2.5 px-4 text-[12px] font-semibold font-inter text-[#4B5563] pr-10"
             type="text"
             placeholder="Search your task here..."
-          ></input>
-          <div className="absolute right-0 top-px w-9 h-9 rounded-lg bg-[#5272FF] flex justify-center items-center text-white">
+          />
+          <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-9 h-9 rounded-lg bg-[#5272FF] flex justify-center items-center text-white cursor-pointer">
             <Search size={18} />
           </div>
         </div>
-        <div className="">
-          <FilterDropdown></FilterDropdown>
+
+        {/* Filter Dropdown */}
+        <div className="w-full md:w-auto">
+          <FilterDropdown />
         </div>
       </div>
+
       <div className="mt-8">
         <TodoList todoLists={todoLists}></TodoList>
       </div>

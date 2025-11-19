@@ -45,7 +45,7 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
           Your Tasks
         </h5>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid lg:grid-cols-3 md:grid-cols-1 grid-cols-1 gap-2">
         {todoLists.map((todoList) => (
           <div
             className="bg-white border border-[#FEE2E2] p-10 rounded-lg"
