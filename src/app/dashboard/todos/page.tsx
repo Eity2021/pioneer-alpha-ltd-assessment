@@ -56,7 +56,13 @@ export default function page() {
         <TodoList todoLists={todoLists}></TodoList>
       </div>
       <div>
-        <TaskModal open={open} onClose={() => setOpen(false)}></TaskModal>
+        <TaskModal
+          open={open}
+          onClose={() => setOpen(false)}
+          onChange={function (value: any): void {
+            throw new Error("Function not implemented.");
+          }}
+        ></TaskModal>
       </div>
     </div>
   );
