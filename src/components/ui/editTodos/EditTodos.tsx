@@ -20,7 +20,10 @@ interface TaskModalProps {
 }
 type Inputs = {
   title: string;
+  description: string;
   todo_date: string;
+  is_completed: string;
+  position: string;
   priority: "";
 };
 
@@ -57,14 +60,14 @@ export default function EditTodos({
   const { mutateAsync } = useMutation({ mutationFn: editTodosForm });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-
     try {
       await mutateAsync({
         id: selectedTodosId?.id,
-        todosData: data,
+        data,
       });
-      queryClient.invalidateQueries(["todoLists"]);
+      queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === "todoLists",
+      });
       toast.success("Added Todos");
       reset();
       onClose();

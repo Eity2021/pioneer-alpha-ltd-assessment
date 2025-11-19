@@ -49,7 +49,10 @@ export const deleteTodos = async (selectedTodosId: any) => {
   return response;
 };
 
-export const editTodosForm = async (id: number, todosData: any) => {
-  const response = await axiosInstance.patch(`/todos/${id}/`, todosData);
+export const editTodosForm = async (selectedTodosId: any, data: any) => {
+  const response = await axiosInstance.patch(
+    `/todos/${selectedTodosId?.id}/`,
+    data
+  );
   return response;
 };
