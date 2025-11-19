@@ -58,7 +58,7 @@ export default function ConfirmModal({
           </div>
 
           <div className="flex gap-3 justify-center mt-5">
-            <MainButton variant="outlined" onClick={onClose}>
+            <MainButton variant="outline" onClick={onClose}>
               {cancelText}
             </MainButton>
             <MainButton variant="primary" onClick={onConfirm}>
