@@ -30,10 +30,12 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
   const { mutateAsync } = useMutation({ mutationFn: postTodosForm });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
     try {
       await mutateAsync(data);
-      queryClient.invalidateQueries(["todoLists"]);
+      queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === "todoLists",
+      });
+
       toast.success("Added Todos");
       reset();
       onClose();

@@ -39,6 +39,7 @@ type Inputs = {
   contact_number: string;
   birthday: string;
   profile_image: FileList;
+  email: string;
 };
 
 const AccountForm: React.FC<userProps> = ({ user }) => {
@@ -54,6 +55,7 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
       first_name: user?.first_name,
       last_name: user?.last_name,
       address: user?.address,
+      email: user?.email,
       contact_number: user?.contact_number,
       birthday: user?.birthday,
     },
