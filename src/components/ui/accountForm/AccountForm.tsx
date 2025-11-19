@@ -73,7 +73,9 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
     console.log("formData", formData);
     try {
       await mutateAsync(formData);
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === "users",
+      });
       toast.success("profile Updated");
       reset();
     } catch (err) {
