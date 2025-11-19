@@ -15,6 +15,7 @@ interface TaskModalProps {
 type Inputs = {
   title: string;
   todo_date: string;
+  description: string;
   priority: "";
 };
 
