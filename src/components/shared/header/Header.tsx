@@ -11,7 +11,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   return (
     <div className="bg-white">
-      <div className="flex justify-between py-8 px-14">
+      <div className="flex justify-between py-8 md:px-14 px-4">
         <button
           className="md:hidden p-2 rounded-md hover:bg-gray-100"
           onClick={onMenuClick}
@@ -28,11 +28,11 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           <div>
             <Image src={Notifications} alt="Notifications" />
           </div>
-          <div>
+          <div className="md:block hidden">
             <p className="font-medium font-inter text-[15px] text-[#0D224A]">
               Friday
             </p>
-            <p className="font-medium font-inter text-[15px] text-[#0D224A]">
+            <p className="font-medium font-inter text-[15px] text-[#0D224A]  ">
               07/11/225
             </p>
           </div>

@@ -16,7 +16,7 @@ export default function page() {
   });
 
   return (
-    <div className="bg-[#eef7ff]  py-6 px-6 h-[88%]">
+    <div className="bg-[#eef7ff]  py-6 md:px-6 px-0 ">
       <div className="flex justify-between mb-10">
         <div>
           <h2 className="text-[36px] font-semibold text-[#0D224A]  font-inter">

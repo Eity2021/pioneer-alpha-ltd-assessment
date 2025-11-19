@@ -61,7 +61,6 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
   const { mutateAsync } = useMutation({ mutationFn: editAccountForm });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-
     const formData = new FormData();
     formData.append("first_name", data.first_name);
     formData.append("last_name", data.last_name);
@@ -73,8 +72,8 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
     }
     console.log("formData", formData);
     try {
-     await mutateAsync(formData);
-      queryClient.invalidateQueries(['users']);
+      await mutateAsync(formData);
+      queryClient.invalidateQueries(["users"]);
       toast.success("profile Updated");
       reset();
     } catch (err) {
