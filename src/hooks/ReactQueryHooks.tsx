@@ -39,3 +39,7 @@ export const editAccountForm = async (editAccountData: any) => {
   const response = await axiosInstance.patch("/users/me/", editAccountData);
   return response;
 };
+export const postTodosForm = async (postTodoData: any) => {
+  const response = await axiosInstance.post("/todos/", postTodoData);
+  return response;
+};

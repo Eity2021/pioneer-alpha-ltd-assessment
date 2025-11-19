@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { UseFormRegister, FieldValues, Path } from "react-hook-form";
-
 import camera from "@/assets/image/camera.png";
 import download from "@/assets/image/download.png";
 
@@ -11,12 +10,14 @@ interface CustomImageUploadProps<T extends FieldValues> {
   name: Path<T>;
   register: UseFormRegister<T>;
   error?: string;
+  user: any
 }
 
 export default function CustomImageUpload<T extends FieldValues>({
   name,
   register,
   error,
+  user
 }: CustomImageUploadProps<T>) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);

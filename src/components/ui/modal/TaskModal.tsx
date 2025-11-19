@@ -3,6 +3,10 @@ import { Trash2 } from "lucide-react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "@/components/customInput/CustomInput";
 import CustomCalendar from "@/components/customCalendar/CustomCalendar";
+import { useMutation } from "@tanstack/react-query";
+import { postTodosForm } from "@/hooks/ReactQueryHooks";
+import { toast } from "react-toastify";
+import { queryClient } from "@/lib/queryClient";
 interface TaskModalProps {
   open: boolean;
   onClose: () => void;
@@ -23,8 +27,20 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
     reset,
     formState: { errors },
   } = useForm<Inputs>();
+    const { mutateAsync } = useMutation({ mutationFn: postTodosForm });
+
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
+    try{
+  await mutateAsync(data);
+      queryClient.invalidateQueries(['todoLists']);
+      toast.success("Added Todos");
+      reset();
+      onClose()
+    }catch (err){
+    toast.error("something error");
+    }
   };
 
   return (
@@ -61,14 +77,24 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
             <label className="block text-[14px] font-inter font-medium text-[#0C0C0C] mb-1">
               Date
             </label>
-            <Controller
-              name="todo_date"
-              control={control}
-              rules={{ required: "Date is required" }}
-              render={({ field }) => (
-                <CustomCalendar value={field.value} onChange={field.onChange} />
-              )}
-            />
+           <div>
+                  <Controller
+                    name="todo_date"
+                    control={control}
+                    render={({ field }) => (
+                      <CustomCalendar
+                        value={field.value || ""}
+                        onChange={(dateString) => field.onChange(dateString)}
+                      />
+                    )}
+                  />
+
+                  {errors.todo_date && (
+                    <p className="text-red-500 text-sm">
+                      {errors.todo_date.message}
+                    </p>
+                  )}
+                </div>
           </div>
 
           {/* Priority */}
@@ -82,7 +108,7 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
                 <span className="text-[13px] font-inter font-normal text-[#4B5563] ">
                   Extreme
                 </span>
-                <input type="checkbox" className="ml-1" />
+                <input type="radio" className="ml-1" value="extreme"  {...register("priority")} />
               </label>
 
               <label className="flex items-center gap-1 cursor-pointer">
@@ -90,7 +116,7 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
                 <span className="text-[13px] font-inter font-normal text-[#4B5563] ">
                   Moderate
                 </span>
-                <input type="checkbox" className="ml-1" />
+                <input type="radio" className="ml-1" value="moderate" {...register("priority")} />
               </label>
 
               <label className="flex items-center gap-1 cursor-pointer">
@@ -98,7 +124,7 @@ export default function TaskModal({ open, onClose }: TaskModalProps) {
                 <span className="text-[13px] font-inter font-normal text-[#4B5563] ">
                   Low
                 </span>
-                <input type="checkbox" className="ml-1" />
+                <input type="radio" className="ml-1"  value="low" {...register("priority")} />
               </label>
             </div>
           </div>
