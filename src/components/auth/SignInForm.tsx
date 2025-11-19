@@ -42,7 +42,7 @@ const SignInForm: React.FC = () => {
   };
 
   return (
-    <div className="w-[40%]">
+    <div className="lg:w-[40%] md:w-[60%] w-[70%]">
       <div>
         <div className="text-center mb-10">
           <h1 className="font-inter font-bold text-[#0D224A] text-[30px]">

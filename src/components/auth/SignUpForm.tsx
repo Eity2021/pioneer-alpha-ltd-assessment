@@ -17,7 +17,7 @@ type Inputs = {
 };
 
 const SignUpForm: React.FC = () => {
-    const router = useRouter();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -29,19 +29,18 @@ const SignUpForm: React.FC = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { confirmPassword, ...finalData } = data;
     console.log(finalData);
-  try{
+    try {
       await mutateAsync(finalData);
       toast.success("Regiatration Successfully Complete");
       router.push("/auth/sign-in");
       reset();
-  } catch(err){
-     toast.error("Something wrong");
-  }
+    } catch (err) {
+      toast.error("Something wrong");
+    }
   };
 
-
   return (
-    <div className="w-[40%]">
+    <div className="xl:w-[40%8] lg:w-[60%] md:w-[70%] w-[80%]">
       <div>
         <div className="text-center mb-10">
           <h1 className="font-inter font-bold text-[#0D224A] text-[30px]">
@@ -54,7 +53,6 @@ const SignUpForm: React.FC = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className="grid grid-cols-2 gap-3">
-
               <CustomInput<Inputs>
                 name="first_name"
                 label="First Name"
@@ -76,7 +74,7 @@ const SignUpForm: React.FC = () => {
                 rules={{
                   required: "Name Is required",
                   pattern: {
-                    value:/^[^\.\d!@#$%^&*()_+=\-{}[\]|\\:;"'<>,.?/`~]*$/,
+                    value: /^[^\.\d!@#$%^&*()_+=\-{}[\]|\\:;"'<>,.?/`~]*$/,
                     message: "Please enter a valid name format",
                   },
                 }}
@@ -89,7 +87,7 @@ const SignUpForm: React.FC = () => {
                 register={register}
                 errors={errors}
                 rules={{
-                  required:"Email Is required",
+                  required: "Email Is required",
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "Please enter a valid Email format",
@@ -126,7 +124,7 @@ const SignUpForm: React.FC = () => {
                   register={register}
                   errors={errors}
                   rules={{
-                  required: "Confirm Password is required",
+                    required: "Confirm Password is required",
                     minLength: {
                       value: 4,
                       message: "Password must be at least 4 characters",
@@ -135,8 +133,9 @@ const SignUpForm: React.FC = () => {
                       value: 10,
                       message: "Password cannot exceed 10 characters",
                     },
-                     validate: (value) =>
-                      value === getValues("password") || "Passwords do not match",
+                    validate: (value) =>
+                      value === getValues("password") ||
+                      "Passwords do not match",
                   }}
                 />
               </div>
