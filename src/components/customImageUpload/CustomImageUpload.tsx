@@ -10,14 +10,14 @@ interface CustomImageUploadProps<T extends FieldValues> {
   name: Path<T>;
   register: UseFormRegister<T>;
   error?: string;
-  user: any
+  user: any;
 }
 
 export default function CustomImageUpload<T extends FieldValues>({
   name,
   register,
   error,
-  user
+  user,
 }: CustomImageUploadProps<T>) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -33,7 +33,7 @@ export default function CustomImageUpload<T extends FieldValues>({
   };
 
   return (
-    <div className="border border-[#A1A3AB] rounded-2xl p-5 w-[32%]">
+    <div className="border border-[#A1A3AB] rounded-2xl p-5 2xl:w-[38%] xl:w-[40%] lg:w-[70%] w-full">
       <div className="flex flex-col sm:flex-row items-center gap-5">
         {/* Image Box */}
         <div

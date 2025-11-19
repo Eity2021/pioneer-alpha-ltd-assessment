@@ -72,7 +72,6 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
     if (data.profile_image && data.profile_image.length > 0) {
       formData.append("profile_image", data.profile_image[0]);
     }
-    console.log("formData", formData);
     try {
       await mutateAsync(formData);
       queryClient.invalidateQueries({
