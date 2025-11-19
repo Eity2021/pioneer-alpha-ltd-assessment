@@ -44,8 +44,8 @@ export const postTodosForm = async (postTodoData: any) => {
   return response;
 };
 
-export const deleteTodos = async (id: any) => {
-  const response = await axiosInstance.delete(`/todos/${id}/`);
+export const deleteTodos = async (selectedTodosId: any) => {
+  const response = await axiosInstance.delete(`/todos/${selectedTodosId.id}/`);
   return response;
 };
 

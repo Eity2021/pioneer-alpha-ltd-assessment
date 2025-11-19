@@ -21,9 +21,7 @@ export default function DeleteTodos({
   selectedTodosId,
   setShowModalDelete,
 }: ModalDeleteNewsletterProps) {
-  console.log("selectedTodosId", selectedTodosId?.id);
   const queryClient = useQueryClient();
-
   const { mutate: deletedTo } = useMutation({
     mutationFn: (id: DeletePayload) => deleteTodos(id),
     onSuccess: (data: any) => {
@@ -48,7 +46,7 @@ export default function DeleteTodos({
         // confirmVariant="outlined"
         icon={<X size={32} color="#7B1E19" />}
         iconColor="#7B1E19"
-        onConfirm={() => deletedTo(selectedTodosId?.id)}
+        onConfirm={() => deletedTo({ id: selectedTodosId?.id })}
       />
     </div>
   );
