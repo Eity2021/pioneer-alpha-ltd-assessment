@@ -97,8 +97,8 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
               user={user}
             />
 
-            <div className="border border-[#A1A3AB] rounded-2xl py-6 px-12 bg-white mt-6">
-              <div className="grid grid-cols-2 gap-6">
+            <div className="border border-[#A1A3AB] rounded-2xl py-6 md:px-12 px-4 bg-white mt-6">
+              <div className="grid  lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2  grid-cols-1 md:gap-6 gap-3">
                 {user?.first_name && (
                   <CustomInput<Inputs>
                     name="first_name"
@@ -140,7 +140,7 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-6 mt-3">
+              <div className="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2  grid-cols-1 md:gap-6 gap-3 mt-3">
                 {user?.address && (
                   <CustomInput<Inputs>
                     name="address"
@@ -172,7 +172,6 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
                 <label className="text-[14px] font-medium text-black font-inter">
                   Birthday
                 </label>
-                {/* {user?.birthday && ( */}
                 <div>
                   <Controller
                     name="birthday"
@@ -193,21 +192,23 @@ const AccountForm: React.FC<userProps> = ({ user }) => {
                     </p>
                   )}
                 </div>
-
-                {/* )} */}
               </div>
-              <div className="flex gap-4 justify-center mt-12">
+
+              <div className="lg:flex md:block sm:flex block gap-4 justify-center mt-12">
                 <div className="mt-3">
                   <CustomButton
                     variant="primary"
                     type="submit"
-                    className="w-[200px]"
+                    className="lg:w-[200px] md:w-full sm:w-[200px] w-full"
                   >
                     Save Changes
                   </CustomButton>
                 </div>
                 <div className="mt-3">
-                  <CustomButton variant="secondary" className="w-[200px]">
+                  <CustomButton
+                    variant="secondary"
+                    className="lg:w-[200px] md:w-full sm:w-[200px] w-full"
+                  >
                     Cancel
                   </CustomButton>
                 </div>

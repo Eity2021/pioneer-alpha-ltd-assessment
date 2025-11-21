@@ -10,8 +10,8 @@ export default function page() {
   });
 
   return (
-    <div className="bg-[#eef7ff]  py-12 lg:px-24 md:px-12 w-full">
-      <div className=" mx-auto bg-white rounded-2xl shadow-md p-8">
+    <div className="bg-[#eef7ff]  py-12 lg:px-24 sm:pl-16 sm:pr-12 pl-4 pr-2 w-full">
+      <div className=" mx-auto bg-white rounded-2xl shadow-md sm:p-8 p-4">
         <h2 className="text-[24px] font-semibold text-[#0D224A]  font-inter">
           Account Information
         </h2>

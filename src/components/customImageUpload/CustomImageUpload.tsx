@@ -55,7 +55,7 @@ export default function CustomImageUpload<T extends FieldValues>({
         <button
           type="button"
           onClick={handleClick}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#5272FF] text-white text-[16px] hover:bg-[#3756e0] font-inter font-normal"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#5272FF] text-white md:text-[16px] sm:text-[13px] text-[10px] hover:bg-[#3756e0] font-inter font-normal"
         >
           <Image src={download} alt="download" /> Upload New Photo
         </button>
