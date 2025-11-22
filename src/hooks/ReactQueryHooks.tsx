@@ -1,5 +1,5 @@
-import axiosInstance from "@/lib/axios.config";
 import axios from "axios";
+import axiosInstance from "@/lib/axios.config";
 
 // ============ TYPES ============
 export interface LoginData {
@@ -24,6 +24,12 @@ export const signUpUser = async (usersData: LoginData) => {
   );
   return response;
 };
+
+export const changePassword = async (changePasswordData: any) => {
+  const response = await axiosInstance.post("/users/change-password/", changePasswordData);
+  return response;
+};
+
 
 export const userProfile = async () => {
   const response = await axiosInstance.get(`/users/me/`);

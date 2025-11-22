@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { UseFormRegister, FieldValues, Path } from "react-hook-form";
 import camera from "@/assets/image/camera.png";
 import download from "@/assets/image/download.png";
+import { UseFormRegister, FieldValues, Path } from "react-hook-form";
 
 interface CustomImageUploadProps<T extends FieldValues> {
   name: Path<T>;

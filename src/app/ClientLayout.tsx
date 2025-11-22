@@ -1,10 +1,10 @@
 "use client";
 
-import ProtectedRoute from "@/components/protectedRoute/ProtectedRoute";
-import Header from "@/components/shared/header/Header";
-import Sidebar from "@/components/sidebar/Sidebar";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import Sidebar from "@/components/sidebar/Sidebar";
+import Header from "@/components/shared/header/Header";
+import ProtectedRoute from "@/components/protectedRoute/ProtectedRoute";
 
 export default function ClientLayout({
   children,
@@ -19,14 +19,12 @@ export default function ClientLayout({
   return (
     <ProtectedRoute>
       <div className="flex min-h-screen bg-gray-100">
-        {/* Desktop Sidebar */}
+
         {!isAuthPage && (
           <div className="hidden md:flex md:flex-col md:w-80 bg-white border-r border-gray-200">
             <Sidebar />
           </div>
         )}
-
-        {/* Mobile overlay sidebar (only shown on small screens) */}
         {!isAuthPage && sidebarOpen && (
           <div className="fixed inset-0 z-40 flex md:hidden">
             <div

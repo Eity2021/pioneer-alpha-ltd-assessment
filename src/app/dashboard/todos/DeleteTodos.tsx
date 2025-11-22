@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { X } from "lucide-react";
+import { toast } from "react-toastify";
 import { deleteTodos } from "@/hooks/ReactQueryHooks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 import DeleteModal from "@/components/ui/deleteModal/DeleteModal";
 
 interface ModalDeleteNewsletterProps {

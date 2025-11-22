@@ -1,8 +1,8 @@
 "use client";
 
+import Cookies from "js-cookie";
 import { useEffect, useState, ReactNode } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Cookies from "js-cookie";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -11,7 +11,7 @@ interface ProtectedRouteProps {
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const authPages = ["/auth/sign-in", "/auth/sign-up", "/auth/forgot"];
+  const authPages = ["/auth/sign-in", "/auth/sign-up"];
   const [isVerified, setIsVerified] = useState<boolean | null>(null);
 
   useEffect(() => {

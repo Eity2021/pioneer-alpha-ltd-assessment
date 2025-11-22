@@ -1,6 +1,6 @@
-import SignUpForm from "@/components/auth/SignUpForm";
 import Image from "next/image";
 import signUp from "@/assets/image/register.png";
+import SignUpForm from "@/components/auth/SignUpForm";
 export default function page() {
   return (
     <div className="">

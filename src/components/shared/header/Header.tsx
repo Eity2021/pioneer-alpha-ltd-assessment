@@ -1,9 +1,10 @@
 import React from "react";
-import logo from "@/assets/svg/logo.svg";
-import cal from "@/assets/svg/Cal.svg";
-import Notifications from "@/assets/svg/Notifications.svg";
 import Image from "next/image";
 import { Menu } from "lucide-react";
+import cal from "@/assets/svg/Cal.svg";
+import logo from "@/assets/svg/logo.svg";
+import Notifications from "@/assets/svg/Notifications.svg";
+
 interface HeaderProps {
   onMenuClick: () => void;
 }

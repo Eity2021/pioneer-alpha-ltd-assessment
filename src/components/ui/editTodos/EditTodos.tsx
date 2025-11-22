@@ -1,13 +1,14 @@
 "use client";
+import { useEffect } from "react";
 import { Trash2 } from "lucide-react";
+import { toast } from "react-toastify";
+import { queryClient } from "@/lib/queryClient";
+import { useMutation } from "@tanstack/react-query";
+import { editTodosForm } from "@/hooks/ReactQueryHooks";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "@/components/customInput/CustomInput";
 import CustomCalendar from "@/components/customCalendar/CustomCalendar";
-import { useMutation } from "@tanstack/react-query";
-import { editTodosForm, postTodosForm } from "@/hooks/ReactQueryHooks";
-import { toast } from "react-toastify";
-import { queryClient } from "@/lib/queryClient";
-import { useEffect } from "react";
+
 interface TaskModalProps {
   open: boolean;
   onClose: () => void;
@@ -98,10 +99,10 @@ export default function EditTodos({
               name="title"
               label="Title"
               register={register}
-              //   errors={errors}
-              //   rules={{
-              //     required: "Title Is required",
-              //   }}
+            //   errors={errors}
+            //   rules={{
+            //     required: "Title Is required",
+            //   }}
             />
           </div>
           <div className="mb-4 hidden">

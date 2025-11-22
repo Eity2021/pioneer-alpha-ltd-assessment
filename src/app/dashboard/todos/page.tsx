@@ -1,11 +1,11 @@
 "use client";
-import { Search } from "lucide-react";
 import { useState } from "react";
+import { Search } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { todosList } from "@/hooks/ReactQueryHooks";
 import TodoList from "../../../components/ui/todoList/TodoList";
 import TaskModal from "@/components/ui/modal/TaskModal";
 import FilterDropdown from "@/components/ui/filterDropdown/FilterDropdown";
-import { todosList } from "@/hooks/ReactQueryHooks";
-import { useQuery } from "@tanstack/react-query";
 
 export default function page() {
   const [open, setOpen] = useState(false);
@@ -37,11 +37,11 @@ export default function page() {
         {/* Search Box */}
         <div className="relative flex-1 w-full mb-2 md:mb-0">
           <input
-            className="border border-[#D1D5DB] w-full bg-white rounded-lg py-2.5 px-4 text-[12px] font-semibold font-inter text-[#4B5563] pr-10"
+            className="border border-[#D1D5DB] w-full bg-white rounded-lg py-2.5 px-4 text-[12px] font-semibold font-inter text-[#4B5563] pr-10 focus:ring- focus:outline-none"
             type="text"
             placeholder="Search your task here..."
           />
-          <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-9 h-9 rounded-lg bg-[#5272FF] flex justify-center items-center text-white cursor-pointer">
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-[38px] h-[38px] rounded-lg bg-[#5272FF] flex justify-center items-center text-white cursor-pointer">
             <Search size={18} />
           </div>
         </div>

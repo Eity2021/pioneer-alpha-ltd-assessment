@@ -1,17 +1,26 @@
 "use client";
-import dotted from "@/assets/image/dotted.png";
-import todos from "@/assets/image/todos.png";
 import Image from "next/image";
-import { PencilLine, Trash } from "lucide-react";
-import { useState } from "react";
-import DeleteTodos from "@/app/dashboard/todos/DeleteTodos";
+import { useState, useEffect } from "react";
+import todos from "@/assets/image/todos.png";
 import EditTodos from "../editTodos/EditTodos";
+import DeleteTodos from "@/app/dashboard/todos/DeleteTodos";
 import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from "@hello-pangea/dnd";
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import SortableTodoItem from "./SortableTodoItem";
+
 
 interface TodoListProps {
   todoLists: any[];
@@ -21,7 +30,22 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [selectedTodosId, setSelectedTodosId] = useState(null);
-  const [todosState, setTodosState] = useState(todoLists);
+  const [todosState, setTodosState] = useState<any[]>([]);
+
+  useEffect(() => {
+    setTodosState(todoLists);
+  }, [todoLists]);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const handleTodoDelete = (todoList: any) => {
     setSelectedTodosId(todoList);
@@ -33,15 +57,20 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
     setShowModalEdit(true);
   };
 
-  // Drag and Drop Handler
-  const handleDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
 
-    const items = Array.from(todosState);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+    if (active.id !== over?.id) {
+      setTodosState((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over?.id);
 
-    setTodosState(items);
+        if (oldIndex !== -1 && newIndex !== -1) {
+          return arrayMove(items, oldIndex, newIndex);
+        }
+        return items;
+      });
+    }
   };
 
   if (!todosState || todosState.length === 0) {
@@ -65,109 +94,27 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
         </h5>
       </div>
 
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="todos" direction="vertical">
-          {(provided) => (
-            <div
-              className="grid lg:grid-cols-3 md:grid-cols-1 grid-cols-1 gap-2"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {todosState.map((todoList, index) => (
-                <Draggable
-                  key={todoList.id}
-                  draggableId={todoList.id.toString()}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <div
-                      className={`bg-white border border-[#FEE2E2] p-10 rounded-lg ${
-                        snapshot.isDragging ? "shadow-lg bg-gray-50" : ""
-                      }`}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <div className="flex justify-between">
-                        <h4 className="font-inter font-medium text-[16px] text-[#0D224A]">
-                          {todoList.title}
-                        </h4>
-                        {todoList.priority == "extreme" ? (
-                          <>
-                            <div className="flex gap-1">
-                              <div className="bg-[#FEE2E2] px-3 py-1 rounded-sm">
-                                <p className="font-inter font-normal text-[14px] text-[#DC2626]">
-                                  {todoList.priority}
-                                </p>
-                              </div>
-                              <div className="flex items-center">
-                                <Image src={dotted} alt="dotted" />
-                              </div>
-                            </div>
-                          </>
-                        ) : todoList.priority == "moderate" ? (
-                          <>
-                            <div className="flex gap-1">
-                              <div className="bg-[#DCFCE7] px-3 py-1 rounded-sm">
-                                <p className="font-inter font-normal text-[14px] text-[#16A34A]">
-                                  {todoList.priority}
-                                </p>
-                              </div>
-                              <div className="flex items-center">
-                                <Image src={dotted} alt="dotted" />
-                              </div>
-                            </div>
-                          </>
-                        ) : todoList.priority == "low" ? (
-                          <div className="flex gap-1">
-                            <div className="bg-[#FEF9C3] px-3 py-1 rounded-sm">
-                              <p className="font-inter font-normal text-[14px] text-[#CA8A04]">
-                                {todoList.priority}
-                              </p>
-                            </div>
-                            <div className="flex items-center">
-                              <Image src={dotted} alt="dotted" />
-                            </div>
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-
-                      <div className="mt-6">
-                        <p className="font-inter font-normal text-[14px] text-[#4B5563]">
-                          {todoList.description}
-                        </p>
-                      </div>
-
-                      <div className="flex justify-between mt-5">
-                        <p className="font-inter font-normal text-[14px] text-[#4B5563]">
-                          Due {todoList.todo_date}
-                        </p>
-                        <div className="flex gap-4">
-                          <div
-                            className="bg-[#EEF7FF] p-3 rounded-lg cursor-pointer"
-                            onClick={() => handleTodoEdit(todoList)}
-                          >
-                            <PencilLine color="#4F46E5" size={19} />
-                          </div>
-                          <div
-                            className="bg-[#EEF7FF] p-3 rounded-lg cursor-pointer"
-                            onClick={() => handleTodoDelete(todoList)}
-                          >
-                            <Trash color="#DC2626" size={19} />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={todosState.map(todo => todo.id)}
+          strategy={rectSortingStrategy}
+        >
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
+            {todosState.map((todoList) => (
+              <SortableTodoItem
+                key={todoList.id}
+                todoList={todoList}
+                onEdit={handleTodoEdit}
+                onDelete={handleTodoDelete}
+              />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
 
       <DeleteTodos
         showModalDelete={showModalDelete}

@@ -1,15 +1,16 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import DashboardIcon from "@/assets/svg/DashboardIcon";
-import TodoListIcon from "@/assets/svg/TodoListIcon";
-import AccountIcon from "@/assets/svg/AccountIcon";
-import { userProfile } from "@/hooks/ReactQueryHooks";
-import { useQuery } from "@tanstack/react-query";
-import { LogOut } from "lucide-react";
 import Cookies from "js-cookie";
+import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import AccountIcon from "@/assets/svg/AccountIcon";
+import TodoListIcon from "@/assets/svg/TodoListIcon";
+import { userProfile } from "@/hooks/ReactQueryHooks";
+import DashboardIcon from "@/assets/svg/DashboardIcon";
+
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();

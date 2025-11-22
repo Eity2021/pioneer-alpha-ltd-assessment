@@ -1,8 +1,8 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google";
-import { ToastContainer } from "react-toastify";
-import ClientLayout from "./ClientLayout";
-import type { Metadata } from "next";
 import "./globals.css";
+import type { Metadata } from "next";
+import ClientLayout from "./ClientLayout";
+import { ToastContainer } from "react-toastify";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import AuthProvider from "@/components/auth/AuthProvider";
 
 const geistSans = Geist({

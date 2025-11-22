@@ -1,7 +1,7 @@
 "use client";
+import { X } from "lucide-react";
 import { ReactNode } from "react";
 import Modal from "../../modal/Modal";
-import { X } from "lucide-react";
 import MainButton from "@/components/customButton/CustomButton";
 
 interface ConfirmModalProps {

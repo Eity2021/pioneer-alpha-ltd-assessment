@@ -1,4 +1,4 @@
-import React, { ReactNode, ButtonHTMLAttributes } from "react";
+import React, { ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "outline";
 

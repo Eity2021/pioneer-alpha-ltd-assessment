@@ -1,7 +1,7 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import filtered from "@/assets/image/filter.png";
-import Image from "next/image";
 
 const FilterDropdown: React.FC = () => {
   const [open, setOpen] = useState(false);
