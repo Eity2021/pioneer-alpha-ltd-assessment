@@ -72,7 +72,6 @@ export default function EditTodos({
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("data", data)
     mutation.mutate(data);
   };
 
