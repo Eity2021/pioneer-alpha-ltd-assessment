@@ -18,6 +18,7 @@ interface TaskModalProps {
   description: any;
   position: any;
   is_completed: any;
+
 }
 type Inputs = {
   title: string;
@@ -26,6 +27,7 @@ type Inputs = {
   is_completed: string;
   position: string;
   priority: "";
+
 };
 
 export default function EditTodos({
@@ -34,8 +36,6 @@ export default function EditTodos({
   selectedTodosId,
 }: TaskModalProps) {
   if (!showModalEdit) return null;
-
-  console.log("selectedTodosId:", selectedTodosId);
 
   const {
     register,
@@ -52,29 +52,28 @@ export default function EditTodos({
         description: selectedTodosId?.description || "",
         priority: selectedTodosId?.priority || "",
         todo_date: selectedTodosId?.todo_date || "",
-        is_completed: selectedTodosId?.is_completed || "",
         position: selectedTodosId?.position || "",
       });
     }
   }, [selectedTodosId, reset]);
 
-  const { mutateAsync } = useMutation({ mutationFn: editTodosForm });
+
+
+  const mutation = useMutation({
+    mutationFn: (data: Inputs) => editTodosForm(selectedTodosId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todoLists"] });
+      toast.success("Todo updated successfully!");
+      onClose();
+    },
+    onError: () => {
+      toast.error("Failed to update todo");
+    },
+  });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    try {
-      await mutateAsync({
-        id: selectedTodosId?.id,
-        data,
-      });
-      queryClient.invalidateQueries({
-        predicate: (query) => query.queryKey[0] === "todoLists",
-      });
-      toast.success("Added Todos");
-      reset();
-      onClose();
-    } catch (err) {
-      toast.error("something error");
-    }
+    console.log("data", data)
+    mutation.mutate(data);
   };
 
   return (
@@ -99,10 +98,7 @@ export default function EditTodos({
               name="title"
               label="Title"
               register={register}
-            //   errors={errors}
-            //   rules={{
-            //     required: "Title Is required",
-            //   }}
+
             />
           </div>
           <div className="mb-4 hidden">
