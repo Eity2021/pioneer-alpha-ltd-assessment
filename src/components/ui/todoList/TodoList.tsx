@@ -103,7 +103,7 @@ const TodoList: React.FC<TodoListProps> = ({ todoLists = [] }) => {
           items={todosState.map(todo => todo.id)}
           strategy={rectSortingStrategy}
         >
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
+          <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2  grid-cols-1 gap-4">
             {todosState.map((todoList) => (
               <SortableTodoItem
                 key={todoList.id}

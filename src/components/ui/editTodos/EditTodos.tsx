@@ -138,12 +138,6 @@ export default function EditTodos({
                   />
                 )}
               />
-
-              {/* {errors.todo_date && (
-                <p className="text-red-500 text-sm">
-                  {errors.todo_date.message}
-                </p>
-              )} */}
             </div>
           </div>
 
@@ -152,8 +146,8 @@ export default function EditTodos({
             <label className="block text-[14px] font-inter font-medium text-[#0C0C0C]  mb-2">
               Priority
             </label>
-            <div className="flex items-center gap-12 text-[14px]">
-              <label className="flex items-center gap-1 cursor-pointer">
+            <div className="sm:flex block items-center gap-12 text-[14px]">
+              <div className="flex items-center gap-1 cursor-pointer">
                 <span className="w-2 h-2 bg-red-600 rounded-full"></span>
                 <span className="text-[13px] font-inter font-normal text-[#4B5563] ">
                   Extreme
@@ -164,9 +158,9 @@ export default function EditTodos({
                   value="extreme"
                   {...register("priority")}
                 />
-              </label>
+              </div>
 
-              <label className="flex items-center gap-1 cursor-pointer">
+              <div className="flex items-center gap-1 cursor-pointer">
                 <span className="w-2 h-2 bg-green-600 rounded-full"></span>
                 <span className="text-[13px] font-inter font-normal text-[#4B5563] ">
                   Moderate
@@ -177,9 +171,9 @@ export default function EditTodos({
                   value="moderate"
                   {...register("priority")}
                 />
-              </label>
+              </div>
 
-              <label className="flex items-center gap-1 cursor-pointer">
+              <div className="flex items-center gap-1 cursor-pointer">
                 <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
                 <span className="text-[13px] font-inter font-normal text-[#4B5563] ">
                   Low
@@ -190,7 +184,7 @@ export default function EditTodos({
                   value="low"
                   {...register("priority")}
                 />
-              </label>
+              </div>
             </div>
           </div>
 

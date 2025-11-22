@@ -119,7 +119,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
           />
 
           {/* Popup Calendar */}
-          <div className="fixed z-30 left-1/2 top-1/2 w-[40%] max-w-md p-6 rounded-xl bg-white border border-gray-100 shadow-lg -translate-x-1/2 -translate-y-1/2">
+          <div className="fixed z-30 left-1/2 top-1/2 w-[90%] max-w-md p-6 rounded-xl bg-white border border-gray-100 shadow-lg -translate-x-1/2 -translate-y-1/2">
 
             {/* Month + Year Dropdowns */}
             <div className="flex items-center justify-between mb-4 gap-3">
@@ -165,11 +165,10 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
                       if (onChange) onChange(formatDate(d));
                       setOpen(false);
                     }}
-                    className={`py-2 rounded-lg transition ${
-                      (value || user?.birthday) === formatDate(d)
-                        ? "bg-linear-to-r from-[#5272FF] to-[#0D224A] text-white font-semibold"
-                        : "hover:bg-gray-100 text-gray-700"
-                    }`}
+                    className={`py-2 rounded-lg transition ${(value || user?.birthday) === formatDate(d)
+                      ? "bg-linear-to-r from-[#5272FF] to-[#0D224A] text-white font-semibold"
+                      : "hover:bg-gray-100 text-gray-700"
+                      }`}
                   >
                     {d.getDate()}
                   </button>

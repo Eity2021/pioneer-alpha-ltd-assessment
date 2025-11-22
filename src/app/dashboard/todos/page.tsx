@@ -16,7 +16,7 @@ export default function page() {
   });
 
   return (
-    <div className="bg-[#eef7ff]  py-6 pr-6 pl-10 ">
+    <div className="bg-[#eef7ff]  py-6 pr-6 xl:pl-10  md:pl-10 pl-6">
       <div className="flex justify-between mb-10">
         <div>
           <h2 className="text-[36px] font-semibold text-[#0D224A]  font-inter">
@@ -46,7 +46,6 @@ export default function page() {
           </div>
         </div>
 
-        {/* Filter Dropdown */}
         <div className="w-full md:w-auto">
           <FilterDropdown />
         </div>

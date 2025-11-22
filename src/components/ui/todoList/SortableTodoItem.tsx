@@ -38,49 +38,53 @@ const SortableTodoItem: React.FC<SortableTodoItemProps> = ({
             style={style}
             {...attributes}
             {...listeners}
-            className={`bg-white border border-[#FEE2E2] p-10 rounded-lg cursor-grab active:cursor-grabbing ${isDragging
+            className={`bg-white border border-[#FEE2E2] md:p-10 p-6 rounded-lg cursor-grab active:cursor-grabbing ${isDragging
                 ? "shadow-lg bg-gray-50 rotate-2"
                 : "hover:shadow-md transition-shadow"
                 }`}
         >
-            <div className="flex justify-between">
+            <div className="sm:flex  block justify-between">
                 <h4 className="font-inter font-medium text-[16px] text-[#0D224A]">
                     {todoList.title}
                 </h4>
-                {todoList.priority == "extreme" ? (
-                    <div className="flex gap-1">
-                        <div className="bg-[#FEE2E2] px-3 py-1 rounded-sm">
-                            <p className="font-inter font-normal text-[14px] text-[#DC2626]">
-                                {todoList.priority}
-                            </p>
+
+                <div>
+                    {todoList.priority == "extreme" ? (
+                        <div className="flex gap-1">
+                            <div className="bg-[#FEE2E2] px-3 py-1 rounded-sm">
+                                <p className="font-inter font-normal text-[14px] text-[#DC2626]">
+                                    {todoList.priority}
+                                </p>
+                            </div>
+                            <div className="flex items-center">
+                                <Image src={dotted} alt="dotted" width={20} height={20} />
+                            </div>
                         </div>
-                        <div className="flex items-center">
-                            <Image src={dotted} alt="dotted" width={20} height={20} />
+                    ) : todoList.priority == "moderate" ? (
+                        <div className="flex gap-1">
+                            <div className="bg-[#DCFCE7] px-3 py-1 rounded-sm">
+                                <p className="font-inter font-normal text-[14px] text-[#16A34A]">
+                                    {todoList.priority}
+                                </p>
+                            </div>
+                            <div className="flex items-center">
+                                <Image src={dotted} alt="dotted" width={20} height={20} />
+                            </div>
                         </div>
-                    </div>
-                ) : todoList.priority == "moderate" ? (
-                    <div className="flex gap-1">
-                        <div className="bg-[#DCFCE7] px-3 py-1 rounded-sm">
-                            <p className="font-inter font-normal text-[14px] text-[#16A34A]">
-                                {todoList.priority}
-                            </p>
+                    ) : todoList.priority == "low" ? (
+                        <div className="flex gap-1">
+                            <div className="bg-[#FEF9C3] px-3 py-1 rounded-sm">
+                                <p className="font-inter font-normal text-[14px] text-[#CA8A04]">
+                                    {todoList.priority}
+                                </p>
+                            </div>
+                            <div className="flex items-center">
+                                <Image src={dotted} alt="dotted" width={20} height={20} />
+                            </div>
                         </div>
-                        <div className="flex items-center">
-                            <Image src={dotted} alt="dotted" width={20} height={20} />
-                        </div>
-                    </div>
-                ) : todoList.priority == "low" ? (
-                    <div className="flex gap-1">
-                        <div className="bg-[#FEF9C3] px-3 py-1 rounded-sm">
-                            <p className="font-inter font-normal text-[14px] text-[#CA8A04]">
-                                {todoList.priority}
-                            </p>
-                        </div>
-                        <div className="flex items-center">
-                            <Image src={dotted} alt="dotted" width={20} height={20} />
-                        </div>
-                    </div>
-                ) : null}
+                    ) : null}
+                </div>
+
             </div>
 
             <div className="mt-6">
