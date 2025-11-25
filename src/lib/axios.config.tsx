@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
   baseURL: "https://todo-app.pioneeralpha.com/api/",
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use((config) => {
